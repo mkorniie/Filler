@@ -1,28 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_filler.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mkorniie <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/03/29 12:36:55 by mkorniie          #+#    #+#             */
+/*   Updated: 2018/03/29 12:36:59 by mkorniie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "filler.h"
 #include <stdio.h>
 
-// void	ft_parse(char *line)
-// {
-// 	static char	flag;
-// 	char		*temp;
+void	ft_writeout(int *res)
+{
+	char *line;
+	if (res == NULL)
+		write(1, "0 0\n", 4);
+	else
+	{
+		line = ft_itoa(res[0]);
+		dprintf(2, "MARIA: writing!\n");
+		write(1, line, ft_strlen(line));
+		dprintf(2, "MARIA: writing! line is [%s]\n", line);
+		free(line);
+		write(1, " ", 1);
+		line = ft_itoa(res[1]);
+		write(1, line, ft_strlen(line));
+		dprintf(2, "MARIA: writing! line is [%s]\n", line);
+		write(1, "\n", 1);
+		free(line);
+	}
+}
 
-// 	if (ft_strstr(line, "Plateau") != NULL)
-// 	{
-// 		flag = 'm';
-// 		temp = ft_strstr(line, " ") + 1;
-// 		map_x_size = ft_atoi(temp);
-// 		printf("map_x_size = %d\n", map_x_size);
-// 		temp = ft_strstr(line, " ") + 1;
-// 		map_y_size = ft_atoi(temp);
-// 		printf("map_y_size = %d\n", map_y_size);
-// 	}
-// 	else if (ft_strstr(line, "Piece") != NULL)
-// 		flag = 'f';
-// 	if (flag == 'm')
-// 		ft_fillmap(line);
-// 	else if (flag == 'f')
-// 		ft_readligure(line);
-// }
 void	ft_setup(void)
 {
 	p_num = 0;
@@ -42,8 +53,9 @@ void	ft_setup(void)
 }
 int		main(void)
 {
-	char *line;
-	int len;
+	char	*line;
+	int		*res;
+	int		len;
 
 	len = 1;
 	ft_setup();
@@ -54,7 +66,7 @@ int		main(void)
 		{
 			p_num = line[10] - '0';
 			sign = (p_num == 1 ? 'O' : 'X');
-			// dprintf(2, "MARIA: p_num is [%d]\n", p_num);
+			dprintf(2, "MARIA: player_number is [%d]\n", p_num);
 		}
 		else if ((len > 0) && (ft_strstr(line, "Plateau") != NULL))
 		{
@@ -64,13 +76,11 @@ int		main(void)
 		}
 		else if ((len > 0) && (ft_strstr(line, "Piece") != NULL))
 		{
-			// dprintf(2, "MARIA: go to writing figure!\n");
+			dprintf(2, "MARIA: go to writing figure!\n");
 			if (ft_readfigure(line) == -1)
 				return (0); 
-			line = ft_findplace();
-			// dprintf(2, "MARIA: writing!\n");
-			write(1, line, 4);
-			free(line);
+			res = ft_getplace();
+			ft_writeout(res);
 		}
 	}
 	write(2, "\n\n", 2);

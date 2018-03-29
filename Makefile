@@ -2,7 +2,7 @@ NAME = mkorniie.filler
 GCC_FLAGS = -Wall -Wextra -Werror
 LIB_NAME = libft.a
 
-FILLER_CFILES = ft_filler.c get_next_line.c ft_parce.c
+FILLER_CFILES = ft_filler.c get_next_line.c ft_parse.c ft_getplace.c
 FILLER_OFILES = $(FILLER_CFILES:.c=.o)
 
 all: $(NAME)
