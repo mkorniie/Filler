@@ -21,7 +21,9 @@ do: all
 doc: all
 	cd resources/ && ./filler_vm -f maps/map00 -p1 players/grati.filler -p2 ../mkorniie.filler
 	cd ..
-
+docr: all
+	cd resources/ && ./filler_vm -f maps/map00 -p1 ../mkorniie.filler -p2 players/grati.filler
+	cd ..
 %.o: %.c
 	gcc $(FLAGS) -c -o $@ $<
 

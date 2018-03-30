@@ -13,43 +13,42 @@
 #ifndef FILLER_H
 # define FILLER_H
 
-#include "libft/libft.h"
-#include "get_next_line.h"
-#include <stdio.h>
+# include "libft/libft.h"
+# include "get_next_line.h"
+# include <stdio.h>
 
-typedef struct		map_list
+typedef struct		s_map_list
 {
 	char			**map;
-	int				map_x_size;
-	int				map_y_size;
-}					m_list;
+	int				map_xsize;
+	int				map_ysize;
+}					t_m_list;
 
-typedef struct		fig_list
+typedef struct		s_fig_list
 {
 	char			**fig;
-	int				fig_x_size;
-	int				fig_y_size;
-	int				trim_y_start;
-	int				trim_x_start;
-	int				trim_y_end;
-	int				trim_x_end;
-	int				trim_y_height;
-	int				trim_x_width;
+	int				fig_xsize;
+	int				fig_ysize;
+	int				trim_ystart;
+	int				trim_xstart;
+	int				trim_yend;
+	int				trim_xend;
+	int				trim_yheight;
+	int				trim_xwidth;
 	int				pos_x;
 	int				pos_y;
-}					f_list;
+}					t_f_list;
 
-int					p_num; // done
-char				sign; // done
+int					g_p_num;
+char				g_sign;
 char				g_enem;
-int					g_start_pos_x; // done
-int					g_start_pos_y; // done
-m_list				*g_map; // done
-f_list				*g_curr_fig;
+int					g_start_pos_x;
+int					g_start_pos_y;
+t_m_list			*g_map;
+t_f_list			*g_currfig;
 
 int		*ft_getplace(void);
 int		ft_fillmap(char *line);
 int		ft_readfigure(char *line);
 
 #endif
-// 42 / filler VM Developped by: Hcao - Abanlin
