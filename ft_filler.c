@@ -15,20 +15,25 @@
 
 void	ft_writeout(int *res)
 {
+	// dprintf(2, "MARIA: writing WATT???!\n");
+	// ft_putstr_fd( "MARIA: writing WATT?!\n", 2);
 	char *line;
 	if (res == NULL)
+	{
+		// dprintf(2, "MARIA: writing NULLLLLLLLL!\n");
 		write(1, "0 0\n", 4);
+	}
 	else
 	{
 		line = ft_itoa(res[0]);
-		dprintf(2, "MARIA: writing!\n");
+		// dprintf(2, "MARIA: writing!\n");
 		write(1, line, ft_strlen(line));
-		dprintf(2, "MARIA: writing! line is [%s]\n", line);
+		// dprintf(2, "MARIA: writing! line is [%s]\n", line);
 		free(line);
 		write(1, " ", 1);
 		line = ft_itoa(res[1]);
 		write(1, line, ft_strlen(line));
-		dprintf(2, "MARIA: writing! line is [%s]\n", line);
+		// dprintf(2, "MARIA: writing! line is [%s]\n", line);
 		write(1, "\n", 1);
 		free(line);
 	}
@@ -66,7 +71,8 @@ int		main(void)
 		{
 			p_num = line[10] - '0';
 			sign = (p_num == 1 ? 'O' : 'X');
-			dprintf(2, "MARIA: player_number is [%d]\n", p_num);
+			g_enem = (sign == 'O' ? 'X' : 'O');
+			// dprintf(2, "MARIA: player_number is [%d]\n", p_num);
 		}
 		else if ((len > 0) && (ft_strstr(line, "Plateau") != NULL))
 		{
@@ -76,10 +82,15 @@ int		main(void)
 		}
 		else if ((len > 0) && (ft_strstr(line, "Piece") != NULL))
 		{
-			dprintf(2, "MARIA: go to writing figure!\n");
+			// dprintf(2, "MARIA: go to writing figure!\n");
 			if (ft_readfigure(line) == -1)
+			{
+				// dprintf(2, "MARIA: 1!\n");
 				return (0); 
+			}
+			// dprintf(2, "MARIA: 2!\n");
 			res = ft_getplace();
+			// dprintf(2, "MARIA: 3!\n");
 			ft_writeout(res);
 		}
 	}

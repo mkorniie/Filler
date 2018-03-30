@@ -35,7 +35,7 @@ void	ft_trimming(void)
 		while (++z < g_curr_fig->fig_x_size)
 			if ((g_curr_fig->fig[i][z]) == '*')
 			{
-				if ((flag == 0))
+				if (flag == 0)
 				{
 					g_curr_fig->trim_y_start = i;
 					g_curr_fig->trim_x_start = z;
@@ -115,10 +115,10 @@ int		ft_readfigure(char *line)
 	n = -1;
 	temp = ft_strstr(line, " ") + 1;
 	g_curr_fig->fig_y_size = ft_atoi(temp);
-	dprintf(2, "MARIA: fig_y_size = %d\n", g_curr_fig->fig_y_size);
+	// dprintf(2, "MARIA: fig_y_size = %d\n", g_curr_fig->fig_y_size);
 	temp = ft_strstr(temp, " ") + 1;
 	g_curr_fig->fig_x_size = ft_atoi(temp);
-	dprintf(2, "MARIA: fig_x_size = %d\n", g_curr_fig->fig_x_size);
+	// dprintf(2, "MARIA: fig_x_size = %d\n", g_curr_fig->fig_x_size);
 	g_curr_fig->fig = (char**)malloc(sizeof(char*) * (g_curr_fig->fig_y_size + 1));
 	g_curr_fig->fig[g_curr_fig->fig_y_size] = NULL;
 	while (n < (g_curr_fig->fig_y_size - 1))
@@ -130,10 +130,10 @@ int		ft_readfigure(char *line)
 		// dprintf(2, "MARIA: n is %d\n",n);
 		// dprintf(2, "MARIA: line is %s\n", line);
 		g_curr_fig->fig[n] = ft_strdup(line);
-		dprintf(2, "MARIA: g_curr_fig->fig[%d] is %s\n", n, g_curr_fig->fig[n]);
+		// dprintf(2, "MARIA: g_curr_fig->fig[%d] is %s\n", n, g_curr_fig->fig[n]);
 	}
-	dprintf(2, "MARIA: trimming!\n");
+	// dprintf(2, "MARIA: trimming!\n");
 	ft_trimming();
-	dprintf(2, "MARIA: outa here!\n");
+	// dprintf(2, "MARIA: outa here!\n");
 	return (1);
 }

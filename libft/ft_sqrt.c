@@ -31,7 +31,7 @@ static int		root(int nb)
 	return (0);
 }
 
-static int				ft_sqrt(int nb)
+int				ft_sqrt(int nb)
 {
 	if (nb <= 0 || nb > 2147395600)
 		return (0);

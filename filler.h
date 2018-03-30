@@ -41,6 +41,7 @@ typedef struct		fig_list
 
 int					p_num; // done
 char				sign; // done
+char				g_enem;
 int					g_start_pos_x; // done
 int					g_start_pos_y; // done
 m_list				*g_map; // done
