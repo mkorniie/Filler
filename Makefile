@@ -19,7 +19,7 @@ re: fclean all
 do: all
 	./$(NAME)
 doc: all
-	cd resources/ && ./filler_vm -f maps/map01 -p1 players/carli.filler -p2 ../mkorniie.filler
+	cd resources/ && ./filler_vm -f maps/map00 -p1 players/grati.filler -p2 ../mkorniie.filler
 	cd ..
 
 %.o: %.c
@@ -58,3 +58,19 @@ doc: all
 # grati.filler*          	/
 # hcao.filler* 				/
 # superjeannot.filler* 		/
+
+#########>>>>WIN SCORE (map01) - P2  DENIS VITALIK SERIOZHA
+# abanlin.filler*     		5/5
+# carli.filler*          	4/5
+# champely.filler*       	5/5
+# grati.filler*          	5/5
+# hcao.filler* 				4/5
+# superjeannot.filler* 		5/5
+
+#########>>>>WIN SCORE (map00) - P2  DENIS VITALIK SERIOZHA
+# abanlin.filler*     		4/5
+# carli.filler*          	3/3
+# champely.filler*       	5/5
+# grati.filler*          	3/4
+# hcao.filler* 				3/3
+# superjeannot.filler* 		4/5

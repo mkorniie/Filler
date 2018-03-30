@@ -13,16 +13,24 @@
 #include "filler.h"
 #include <stdio.h>
 
-int		*ft_find_enemy_center(void)
+int		ft_destination(int y1, int x1, int y2, int x2)
+{
+	int res;
+
+	res = (x1 - x2) * (x1 - x2);
+	res += (y1 - y2) * (y1 - y2);
+	res = ft_sqrt(res);
+	return (res);
+}
+
+int			ft_find_enemy_closest_dest(int y_center, int x_center)
 {
 	int		*res;
 	int		i;
 	int		z;
 	int		flag;
-	int		x_start;
-	int		y_start;
-	int		x_end;
-	int		y_end;
+	int		dest_tmp;
+	int		dest;
 
 	if ((res = (int*)malloc(sizeof(int) * 3)) == NULL)
 		return (NULL);
@@ -31,52 +39,55 @@ int		*ft_find_enemy_center(void)
 	res[2] = 0;
 	i = -1;
 	flag = 0;
-	x_start = -1;
-	y_start = -1;
-	x_end = -1;
-	y_end = -1;
+	// enem_y = -1;
+	// enem_x = -1;
+	// x_end = -1;
+	// y_end = -1;
 	while (++i < (g_map->map_y_size))
 	{
 		z = -1;
 		while (++z < (g_map->map_x_size))
 		{
+			dest_tmp = ft_destination(i, z, y_center, x_center);
 			if ((g_map->map[i][z]) == g_enem)
 			{
 				if (flag == 0)
 				{
-					y_start = i;
-					x_start = z;
+					res[0] = i;
+					res[1] = z;
+					dest = dest_tmp;
 					flag = 1;
 				}
-				if (y_end < i)
-					y_end = i;
-				if (x_end < z)
-					x_end = z;
-				if (x_start > z)
-					x_start = z;
+				if (dest_tmp < dest)
+				{
+					res[0] = i;
+					res[1] = z;
+					dest = dest_tmp;
+				}
 			}
 		}
 	}
-	res[0] = (y_start + y_end) / 2;
-	res[1] = (x_start + x_end) / 2;
+	// res[0] = ;
+	// res[1] = (x_start + x_end) / 2;
 	// res[0] = y_end; 
 	// res[1] = x_end;
-	return (res);
+	return (dest);
 }
 
-int		ft_findindexz(int x, int y)
-{
-	int *center;
-	int x_corner;
-	int y_corner;
-	int destination;
+// int		ft_findindexz(int x, int y)
+// {
+// 	int *closest;
+// 	int x_center;
+// 	int y_center;
+// 	int destination;
 
-	center = ft_find_enemy_center();
-	y_corner = y + g_curr_fig->trim_y_end;
-	x_corner = x + g_curr_fig->trim_x_end;
-	destination = ((x_corner - center[1]) * (x_corner - center[1])) + ((y_corner - center[0]) * (y_corner - center[0]));
-	return (destination);
-}
+// 	y_center = y + ((g_curr_fig->trim_y_height)/2 + 1);
+// 	x_center = x + ((g_curr_fig->trim_x_end)/2 + 1);
+// 	closest = ft_find_enemy_closest(y_center, x_center);
+// 	destination = ((x_corner - center[1]) * (x_corner - center[1]));
+// 	destination += ((y_corner - center[0]) * (y_corner - center[0]));
+// 	return (destination);
+// }
 
 int		ft_n_of_touches(int x, int y)
 {
@@ -218,7 +229,7 @@ int		*ft_findpos(void)
 		{
 			if (ft_n_of_touches(x, y) == 1)
 			{
-				dest = ft_findindexz(x, y);
+				dest = ft_find_enemy_closest_dest(x, y);
 				cover = ft_coverage(x,y);
 				// border = ft_ifborder(x, y);
 				if (res[0] == -1)
@@ -231,7 +242,7 @@ int		*ft_findpos(void)
 					res[1] = x - g_curr_fig->trim_x_start;
 					flag = 1;
 				}
-				if (cover >= index[1])
+				if (cover > index[1])
 				{
 					// dprintf(2, "MARIA: cover > index[1]\n");
 					index[1] = cover;
@@ -244,7 +255,7 @@ int		*ft_findpos(void)
 				// {
 
 				// }
-				else if (index[0] > dest)
+				else if ((cover == index[1]) && (index[0] > dest))
 				{
 					// dprintf(2, "MARIA: res[0] == -1\n");
 					// index[2] = border;
