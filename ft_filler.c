@@ -54,8 +54,6 @@ void	ft_setup(int *len)
 	g_currfig->fig = NULL;
 	g_currfig->fig_xsize = -1;
 	g_currfig->fig_ysize = -1;
-	g_currfig->pos_x = -1;
-	g_currfig->pos_y = -1;
 }
 int		main(void)
 {

@@ -35,8 +35,6 @@ typedef struct		s_fig_list
 	int				trim_xend;
 	int				trim_yheight;
 	int				trim_xwidth;
-	int				pos_x;
-	int				pos_y;
 }					t_f_list;
 
 int					g_p_num;
@@ -50,5 +48,7 @@ t_f_list			*g_currfig;
 int		*ft_getplace(void);
 int		ft_fillmap(char *line);
 int		ft_readfigure(char *line);
+int		*ft_setres(void);
+int		ft_destination(int y1, int x1, int y2, int x2);
 
 #endif

@@ -12,28 +12,6 @@
 
 #include "filler.h"
 
-int		ft_destination(int y1, int x1, int y2, int x2)
-{
-	int res;
-
-	res = (x1 - x2) * (x1 - x2);
-	res += (y1 - y2) * (y1 - y2);
-	res = ft_sqrt(res);
-	return (res);
-}
-
-int		*ft_setres(void)
-{
-	int *res;
-
-	if ((res = (int*)malloc(sizeof(int) * 3)) == NULL)
-		return (NULL);
-	res[0] = -1;
-	res[1] = -1;
-	res[2] = 0;
-	return (res);
-}
-
 int		ft_find_enemy_closest_dest(int y_center, int x_center)
 {
 	int		*res;
@@ -89,9 +67,7 @@ int		ft_n_of_touches(int x, int y)
 				if (g_currfig->fig[fpos_y][fpos_x] == '*')
 					return (-1);
 			}
-	if (n_of_touches == 1)
-		return (1);
-	return (0);
+	return (n_of_touches == 1 ? 1 : 0);
 }
 
 int		ft_coverage(int x, int y)
@@ -142,7 +118,7 @@ int		*ft_getplace(void)
 				if ((a[2] = ft_find_enemy_closest_dest(cord[1], cord[0])) < 0)
 					return (NULL);
 				a[1] = ft_coverage(cord[1],cord[0]);
-				if (res[0] == -1 || a[1] > i[1] || (a[1] == i[1]) && (i[0] > a[2]))
+				if (res[0] == -1 || a[1] > i[1] || ((a[1] == i[1]) && (i[0] > a[2])))
 				{
 					i[1] = a[1];
 					i[0] = a[2];
