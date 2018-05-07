@@ -15,10 +15,9 @@
 void	ft_writeout(int *res)
 {
 	char *line;
+
 	if (res == NULL)
-	{
 		write(1, "0 0\n", 4);
-	}
 	else
 	{
 		line = ft_itoa(res[0]);
@@ -54,7 +53,10 @@ void	ft_setup(int *len)
 	g_currfig->fig = NULL;
 	g_currfig->fig_xsize = -1;
 	g_currfig->fig_ysize = -1;
+	g_currfig->pos_x = -1;
+	g_currfig->pos_y = -1;
 }
+
 int		main(void)
 {
 	char	*line;
@@ -69,13 +71,13 @@ int		main(void)
 			ft_setsign(line);
 		else if ((len > 0) && (ft_strstr(line, "Plateau") != NULL))
 		{
-			if (ft_fillmap(line) == -1)
+			if (ft_fillmap(line) == -1 || !(ft_setnummap()))
 				return (0);
 		}
 		else if ((len > 0) && (ft_strstr(line, "Piece") != NULL))
 		{
 			if (ft_readfigure(line) == -1)
-				return (0); 
+				return (0);
 			res = ft_getplace();
 			ft_writeout(res);
 		}

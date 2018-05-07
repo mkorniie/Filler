@@ -1,0 +1,51 @@
+#!/bin/bash
+
+MAP="$1"
+ENEMY="$2"
+ENEMY_NUMBER="$3"
+GREEN="\033[1;32m"
+NOCOLOR="\033[0m"
+ENEMY_SIGN="🔥"
+MY_SIGN="💧"
+DOT="."
+FIELD="🌲"
+
+if [ -n "$MAP" ] && [ -n "$ENEMY" ] && [ -n "$ENEMY_NUMBER" ]
+then
+	echo "You chose map $MAP"
+	echo "You chose player $ENEMY as $ENEMY_NUMBER player"
+	if [ "$ENEMY_NUMBER" = "1" ]
+	then
+		cd resources/ && ./filler_vm -f maps/map"$MAP" -p1 players/"$ENEMY" -p2 ../mkorniie.filler > tmp
+		while IFS='' read -r line || [[ -n "$line" ]]; do
+		if [[ $line = *"Plateau"* ]]; then
+			sleep .3
+			clear
+		fi
+		if [[ $line = *"0123"* ]]; then
+			echo "$line" | sed 's/0/ 0/g' | sed 's/1/ 1/g' | sed 's/2/ 2/g' | sed 's/3/ 3/g' | sed 's/4/ 4/g' | sed 's/5/ 5/g' | sed 's/6/ 6/g' | sed 's/7/ 7/g' | sed 's/8/ 8/g' | sed 's/9/ 9/g'
+		else
+    		echo "$GREEN$line" | tr O "$ENEMY_SIGN" | tr o "$ENEMY_SIGN" | tr X "$MY_SIGN" | tr x "$MY_SIGN" | tr "$DOT" "$FIELD" 
+		fi
+		done < "tmp"
+		rm tmp
+		cd ..
+	else
+		cd resources/ && ./filler_vm -f maps/map"$MAP" -p1 ../mkorniie.filler -p2 players/"$ENEMY" > tmp
+		while IFS='' read -r line || [[ -n "$line" ]]; do
+		if [[ $line = *"Plateau"* ]]; then
+			sleep .3
+			clear
+		fi
+		if [[ $line = *"0123"* ]]; then
+			echo "$line" | sed 's/0/ 0/g' | sed 's/1/ 1/g' | sed 's/2/ 2/g' | sed 's/3/ 3/g' | sed 's/4/ 4/g' | sed 's/5/ 5/g' | sed 's/6/ 6/g' | sed 's/7/ 7/g' | sed 's/8/ 8/g' | sed 's/9/ 9/g'
+		else
+    		echo "$GREEN$line" | tr X "$ENEMY_SIGN" | tr x "$ENEMY_SIGN" | tr O "$MY_SIGN" | tr o "$MY_SIGN" | tr "$DOT" "$FIELD" 
+		fi
+		done < "tmp"
+		rm tmp
+		cd ..
+	fi
+else
+	echo "Wrong entry! Enter map size, enemy name and enemy number"
+fi
